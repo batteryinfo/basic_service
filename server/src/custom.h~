@@ -1,0 +1,2 @@
+int sample_add_timer(void);
+int sample_add_socket(void);

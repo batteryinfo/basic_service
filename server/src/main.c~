@@ -3,7 +3,8 @@
 
 static void custom_init()
 {
-	sample_custom_init();
+	sample_add_timer();
+	sample_add_socket();
 }
 
 static void custom_exit()

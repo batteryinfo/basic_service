@@ -7,6 +7,7 @@ Group:      Framework/system
 License:    Apache License, Version 2.0
 Source0:    %{name}-%{version}.tar.gz
 Source1:    SAMPLE.service
+Source2:    SAMPLE.socket
 
 # Required packages
 # Pkgconfig tool helps to find libraries that have already been installed
@@ -17,6 +18,22 @@ BuildRequires:  pkgconfig(capi-network-bluetooth)
 BuildRequires:  pkgconfig(capi-system-info)
 BuildRequires:  pkgconfig(dlog)
 BuildRequires:  pkgconfig(ecore)
+BuildRequires:  pkgconfig(heynoti)
+BuildRequires:  pkgconfig(vconf)
+BuildRequires:  pkgconfig(sysman)
+BuildRequires:  pkgconfig(tapi)
+BuildRequires:  pkgconfig(pmapi)
+BuildRequires:  pkgconfig(edbus)
+BuildRequires:  pkgconfig(dlog)
+BuildRequires:  pkgconfig(syspopup-caller)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(notification)
+BuildRequires:  pkgconfig(usbutils)
+BuildRequires:  pkgconfig(udev)
+BuildRequires:  pkgconfig(device-node)
+BuildRequires:  pkgconfig(libsmack)
+BuildRequires:  pkgconfig(libsystemd-daemon)
+BuildRequires:	gettext
 
 ## Description string that this package's human users can understand
 %description
@@ -46,8 +63,12 @@ cp LICENSE %{buildroot}/usr/share/license/%{name}
 
 # install systemd service
 mkdir -p %{buildroot}%{_libdir}/systemd/system/graphical.target.wants
+mkdir -p %{buildroot}%{_libdir}/systemd/system/sockets.target.wants
 install -m 0644 %SOURCE1 %{buildroot}%{_libdir}/systemd/system/
+install -m 0644 %SOURCE2 %{buildroot}%{_libdir}/systemd/system/
 ln -s ../SAMPLE.service %{buildroot}%{_libdir}/systemd/system/graphical.target.wants/SAMPLE.service
+ln -s ../SAMPLE.socket %{buildroot}%{_libdir}/systemd/system/sockets.target.wants/SAMPLE.socket
+
 
 ## Postprocess script
 %post 
@@ -55,7 +76,9 @@ ln -s ../SAMPLE.service %{buildroot}%{_libdir}/systemd/system/graphical.target.w
 ## Binary Package: File list
 %files
 %manifest SAMPLE.manifest
-%{_bindir}/SAMPLE
+%{_bindir}/SAMPLE_server
 %{_libdir}/systemd/system/SAMPLE.service
+%{_libdir}/systemd/system/SAMPLE.socket
 %{_libdir}/systemd/system/graphical.target.wants/SAMPLE.service
+%{_libdir}/systemd/system/sockets.target.wants/SAMPLE.socket
 /usr/share/license/%{name}

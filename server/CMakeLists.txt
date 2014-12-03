@@ -11,6 +11,17 @@ PKG_CHECK_MODULES(rpkgs-ecore REQUIRED
 	ecore-file
 	ecore-x
 	eina
+	sysman
+	vconf
+	heynoti
+	pmapi
+	tapi
+	dlog
+	syspopup-caller
+	notification
+	device-node
+	libsmack
+	libsystemd-daemon
 )
 
 # Add CFLAGS used for required modules
@@ -28,6 +39,8 @@ INCLUDE_DIRECTORIES(
 # Set sources
 ADD_EXECUTABLE(${PROJECT_NAME}
 	src/main.c
+	src/custom.c
+	src/ss_log.c
 )
 
 # Set LDFLAGS
