@@ -1,9 +1,11 @@
 #include <Ecore.h>
 #include "custom.h" 
+#include "vconf.h"
 
 static void custom_init()
 {
 	sample_custom_init();
+	sample_vconf_init();
 }
 
 static void custom_exit()

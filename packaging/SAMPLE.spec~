@@ -13,6 +13,11 @@ Source2:    SAMPLE.socket
 # Pkgconfig tool helps to find libraries that have already been installed
 BuildRequires:  cmake
 BuildRequires:  libattr-devel
+BuildRequires:  pkgconfig(capi-appfw-application)
+BuildRequires:  pkgconfig(capi-appfw-app-manager)
+BuildRequires:  pkgconfig(capi-system-runtime-info)
+BuildRequires:  pkgconfig(elementary)
+BuildRequires:  pkgconfig(notification)
 BuildRequires:  pkgconfig(glib-2.0)
 BuildRequires:  pkgconfig(capi-network-bluetooth)
 BuildRequires:  pkgconfig(capi-system-info)

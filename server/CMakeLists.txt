@@ -7,6 +7,12 @@ INCLUDE(FindPkgConfig)
 PKG_CHECK_MODULES(rpkgs-dlog REQUIRED dlog)
 PKG_CHECK_MODULES(rpkgs-capi REQUIRED capi-network-bluetooth capi-system-info)
 PKG_CHECK_MODULES(rpkgs-ecore REQUIRED 
+	capi-appfw-application
+	capi-appfw-app-manager
+	capi-system-runtime-info
+	elementary
+	notification
+	libprivilege-control
 	ecore
 	ecore-file
 	ecore-x
@@ -41,6 +47,7 @@ ADD_EXECUTABLE(${PROJECT_NAME}
 	src/main.c
 	src/custom.c
 	src/ss_log.c
+	src/vconf.c
 )
 
 # Set LDFLAGS

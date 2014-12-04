@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #include <stdio.h>
-#include <dlog.h>
+
 #include <dlfcn.h>
 #include <stdbool.h>
 #include <systemd/sd-daemon.h>
@@ -35,7 +35,6 @@ static int read_message(int fd, struct message_data *msg)
 	int i;
 
 	read(fd, msg, sizeof(struct message_data));
-	//msg->val = recv_int(fd);
 	
 	return 0;
 }
@@ -45,9 +44,7 @@ static int custom_cb(void *data, Ecore_Fd_Handler * fd_handler)
 	int fd;
 	struct message_data *msg; //-------
 
-	PRT_ERR("[gandan] socket received!!\n");
 	PRT_ERR("[gandan] %s: socket data received\n", __FUNCTION__);
-
 
 	struct sockaddr_un client_address;
 	int client_sockfd;
@@ -75,19 +72,11 @@ static int custom_cb(void *data, Ecore_Fd_Handler * fd_handler)
 		free(msg);
 		return -1;
 	}
-	//if (read_message(client_sockfd, msg) < 0) {
 
 	read_message(client_sockfd, msg);
 	PRT_ERR("[gandan] received data : %d\n", msg->val);
 
-	//print_sysnoti_msg(__FUNCTION__, msg);
-	
-/*
-	if (sync)
-		write(client_sockfd, &ret, sizeof(int));
-	close(client_sockfd);
-*/
-	PRT_ERR("[gandan] socket received end!\n");
+	PRT_ERR("[gandan] %s: socket data receive end\n", __FUNCTION__);
 	free(msg);
 
 	return 1;
@@ -109,24 +98,6 @@ static int custom_server_init(void)
 		PRT_ERR("%s: socket create failed\n", __FUNCTION__);
 		return -1;
 	}
-
-	/*
-	if((fsetxattr(fd, "security.SMACK64IPOUT", "@", 2, 0)) < 0 ) {
-		PRT_ERR("%s: Socket SMACK labeling failed\n", __FUNCTION__);
-		if(errno != EOPNOTSUPP) {
-			close(fd);
-			return -1;
-		}
-	}
-
-	if((fsetxattr(fd, "security.SMACK64IPIN", "*", 2, 0)) < 0 ) {
-		PRT_ERR("%s: Socket SMACK labeling failed\n", __FUNCTION__);
-		if(errno != EOPNOTSUPP) {
-			close(fd);
-			return -1;
-		}
-	}
-*/
 
 	bzero(&serveraddr, sizeof(struct sockaddr_un));
 	serveraddr.sun_family = AF_UNIX;
